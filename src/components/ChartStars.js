@@ -1,9 +1,40 @@
 import React, { useEffect, useRef } from 'react';
 import { Chart, registerables } from 'chart.js';
-import { format, getISOWeek, getYear, parseISO } from 'date-fns';
+import { format, parseISO, startOfISOWeek } from 'date-fns';
 import 'chartjs-adapter-date-fns';
+import styled from 'styled-components';
 
 Chart.register(...registerables);
+
+const ErrorMessage = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 350px; /* Altura aumentada */
+  background-color: #f0f0f5; /* Cor de fundo */
+  border-radius: 12px;
+  color: #555; /* Cor do texto */
+  font-size: 18px;
+  font-weight: 500;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: color 0.3s ease;
+  padding: 20px; /* Padding para espaçamento interno */
+`;
+
+const ErrorIcon = styled.div`
+  width: 24px;
+  height: 24px;
+  background-color: #ff4d4f; /* Cor do ícone */
+  border-radius: 50%; /* Formato circular */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px; /* Espaçamento entre ícone e texto */
+  color: white; /* Cor do ícone */
+  font-weight: bold;
+  font-size: 16px; /* Aumentar levemente o tamanho do ícone */
+`;
 
 function ChartStars({ data, groupBy, viewType }) {
   const chartRef = useRef(null);
@@ -17,9 +48,7 @@ function ChartStars({ data, groupBy, viewType }) {
       if (groupBy === 'day') {
         formattedDate = format(date, 'yyyy-MM-dd');
       } else if (groupBy === 'week') {
-        const year = getYear(date);
-        const week = getISOWeek(date);
-        formattedDate = `${year}-W${week}`;
+        formattedDate = format(startOfISOWeek(date), 'yyyy-MM-dd');
       } else if (groupBy === 'month') {
         formattedDate = format(date, 'yyyy-MM');
       } else {
@@ -144,6 +173,15 @@ function ChartStars({ data, groupBy, viewType }) {
       }
     };
   }, [data, groupBy, viewType]);
+
+  if (data.length === 0 || aggregateData(data, groupBy).length === 0) {
+    return (
+      <ErrorMessage>
+        <ErrorIcon>!</ErrorIcon>
+        Nenhum dado disponível para o período selecionado.
+      </ErrorMessage>
+    );
+  }
 
   return (
     <div style={{ position: 'relative', height: '450px', width: '100%' }}>

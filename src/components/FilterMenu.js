@@ -1,3 +1,4 @@
+// FilterMenu.js
 import React from 'react';
 import styled from 'styled-components';
 
@@ -8,6 +9,12 @@ const FilterContainer = styled.div`
   background-color: #ffffff; 
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 15px;
+    align-items: stretch;
+  }
 `;
 
 const Label = styled.label`
@@ -32,6 +39,11 @@ const Select = styled.select`
   &:focus {
     border-color: #007aff;
     outline: none;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+    padding: 8px;
   }
 `;
 

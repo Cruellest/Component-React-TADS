@@ -11,12 +11,24 @@ const Container = styled.div`
   padding: 40px;
   background-color: #f5f5f7;
   color: #333;
+
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
 `;
 
 const Title = styled.h1`
   color: #1c1c1e;
-  font-size: 32px;
-  font-weight: 600;
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: 1px; 
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin: 0;
+  padding: 10px 0;
+  
+  @media (max-width: 768px) {
+    font-size: 28px;
+  }
 `;
 
 const Section = styled.section`
@@ -25,12 +37,22 @@ const Section = styled.section`
   border-radius: 12px;
   background: #fff;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
 `;
 
 const FilterWrapper = styled.div`
   display: flex;
   justify-content: space-around;
   margin-bottom: 20px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
 `;
 
 function App() {

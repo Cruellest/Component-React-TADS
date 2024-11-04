@@ -1,5 +1,7 @@
+// UserHighlights.js
 import React from 'react';
 import styled from 'styled-components';
+import UserCard from './UserCard';
 
 const HighlightContainer = styled.div`
   display: flex;
@@ -8,11 +10,22 @@ const HighlightContainer = styled.div`
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
 `;
 
 const HighlightCategory = styled.div`
   text-align: center;
   width: 30%;
+
+  @media (max-width: 900px) {
+    width: 100%;
+    margin-bottom: 20px;
+  }
 `;
 
 const Title = styled.h3`
@@ -20,31 +33,10 @@ const Title = styled.h3`
   margin-bottom: 15px;
   color: #333;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-`;
 
-const UserCard = styled.div`
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  padding: 15px;
-  margin: 10px 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
-
-  &:hover {
-    transform: scale(1.02);
+  @media (max-width: 600px) {
+    font-size: 1.2em;
   }
-`;
-
-const UserName = styled.div`
-  font-size: 1.2em;
-  font-weight: bold;
-  color: #007aff;
-`;
-
-const UserFollowers = styled.div`
-  font-size: 0.9em;
-  color: #666;
 `;
 
 function UserHighlights({ users }) {
@@ -57,28 +49,19 @@ function UserHighlights({ users }) {
       <HighlightCategory>
         <Title>Primeiros</Title>
         {firstStars.map((user) => (
-          <UserCard key={user.id}>
-            <UserName>{user.name}</UserName>
-            <UserFollowers>{user.followers} seguidores</UserFollowers>
-          </UserCard>
+          <UserCard key={user.id} name={user.name} followers={user.followers} />
         ))}
       </HighlightCategory>
       <HighlightCategory>
         <Title>Últimos</Title>
         {recentStars.map((user) => (
-          <UserCard key={user.id}>
-            <UserName>{user.name}</UserName>
-            <UserFollowers>{user.followers} seguidores</UserFollowers>
-          </UserCard>
+          <UserCard key={user.id} name={user.name} followers={user.followers} />
         ))}
       </HighlightCategory>
       <HighlightCategory>
         <Title>Populares</Title>
         {mostPopular.map((user) => (
-          <UserCard key={user.id}>
-            <UserName>{user.name}</UserName>
-            <UserFollowers>{user.followers} seguidores</UserFollowers>
-          </UserCard>
+          <UserCard key={user.id} name={user.name} followers={user.followers} />
         ))}
       </HighlightCategory>
     </HighlightContainer>
